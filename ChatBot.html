@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Chatbot</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type = "image/x-icon"  href="bot.webp">
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -98,6 +99,14 @@
             background: rgba(255,255,255,0.3);
         }
 
+        .user-avatar {
+            border: 2px solid var(--user-color);
+        }
+
+        .bot-avatar {
+            border: 2px solid #7cafed;
+        }
+
         .chat-body {
             flex: 1;
             padding: 20px;
@@ -131,13 +140,7 @@
             flex-shrink: 0;
         }
 
-        .user-avatar {
-            border: 2px solid var(--user-color);
-        }
-
-        .bot-avatar {
-            border: 2px solid #764ba2;
-        }
+       
 
         .message-content {
             display: flex;
@@ -360,6 +363,60 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #a8a8a8;
         }
+
+        /* New dark mode root variables */
+.dark-mode {
+    --primary-gradient: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    --user-color: #5a67d8;
+    --bot-color: #3d3d3d;
+    --text-dark: #f0f0f0;
+    --text-light: #ffffff;
+    --shadow: 0 5px 30px rgba(0,0,0,0.3);
+}
+
+/* Dark mode body background */
+body.dark-mode {
+    background:linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* Dark mode chat container */
+.dark-mode .chat-container {
+    background: #2d2d2d;
+}
+
+/* Dark mode chat body */
+.dark-mode .chat-body {
+    background-color: #252525;
+    background-image: none;
+}
+
+/* Dark mode input container */
+.dark-mode .input-container {
+    background: #2d2d2d;
+    border-top: 1px solid #444;
+}
+
+/* Dark mode input field */
+.dark-mode #user-input {
+    background: #3d3d3d;
+    border-color: #555;
+    color: #f0f0f0;
+}
+
+/* Dark mode buttons */
+.dark-mode .input-btn {
+    background: #3d3d3d;
+    color: #aaa;
+}
+
+/* Dark mode scrollbar */
+.dark-mode ::-webkit-scrollbar-track {
+    background: #3d3d3d;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background: #555;
+}
     </style>
 </head>
 <body>
@@ -376,7 +433,7 @@
         <div class="chat-body" id="chat-body">
         
             <div class="message-container bot">
-                <img src="AI.webp" alt="AI Avatar" class="avatar bot-avatar">
+                <img src="bot.webp" alt="AI Avatar" class="avatar bot-avatar">
                 <div class="message-content">
                     <div class="message bot-message">Hello! I'm your AI assistant powered by DeepSeek. How can I help you today?</div>
                     
@@ -413,8 +470,8 @@
         let isDarkMode = false;
 
         // User data
-        const userAvatar = "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"; // Replace with your avatar URL
-        const botAvatar = "https://thumbs.dreamstime.com/b/ai-chatbot-logo-friendly-robot-avatar-glowing-gradient-lines-virtual-assistant-look-perfect-customer-support-apps-382526849.jpg"; // Replace with your bot avatar URL
+        const userAvatar = "https://cdn-icons-png.flaticon.com/512/9187/9187532.png"; // Replace with your avatar URL
+        const botAvatar = "https://cdn3.iconfinder.com/data/icons/vector-robots-set-concept-in-blue-color-style/1772/robo_advisor_robot_assistant_chatbot-512.png"; // Replace with your bot avatar URL
 
         // API Configuration
         const API_KEY = "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";
@@ -613,6 +670,18 @@
             themeBtn.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
             themeBtn.title = isDarkMode ? 'Light mode' : 'Dark mode';
         }
+
+
+        // Modified toggleDarkMode function
+function toggleDarkMode() {
+    isDarkMode = !isDarkMode;
+    body.classList.toggle('dark-mode');  // Added this line to toggle class on body
+    themeBtn.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    themeBtn.title = isDarkMode ? 'Light mode' : 'Dark mode';
+}
+
+// Added body reference at the top
+const body = document.body;
 
         // Make chat window draggable
         function makeDraggable() {
